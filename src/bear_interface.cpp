@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
+#include "hardware_interface/types/hardware_interface_type_values.hpp"
+
 #include "rclcpp/rclcpp.hpp"
 
 namespace bear_hardware {
@@ -49,13 +51,13 @@ std::vector<hardware_interface::StateInterface> BearHardware::export_state_inter
   std::vector<hardware_interface::StateInterface> state_interfaces;
 
   // Loop through each joint and register state interfaces for position, velocity, and effort
-  for (uint i = 0; i < joints_.size(); ++i) {
+  for (uint i = 0; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-    info_.joints[i].name, "position", &joints_[i].state.position));
+      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &joints_[i].state.position));
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-    info_.joints[i].name, "velocity", &joints_[i].state.velocity));
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &joints_[i].state.velocity));
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-    info_.joints[i].name, "effort", &joints_[i].state.effort));
+      info_.joints[i].name, hardware_interface::HW_IF_EFFORT, &joints_[i].state.effort));
   }
 
   return state_interfaces;
@@ -66,13 +68,13 @@ std::vector<hardware_interface::CommandInterface> BearHardware::export_command_i
   std::vector<hardware_interface::CommandInterface> command_interfaces;
 
   // Loop through each joint and register command interfaces for position, velocity, and effort
-  for (uint i = 0; i < joints_.size(); ++i) {
+  for (uint i = 0; i < info_.joints.size(); i++) {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
-    info_.joints[i].name, "position", &joints_[i].command.position));
+      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &joints_[i].command.position));
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
-    info_.joints[i].name, "velocity", &joints_[i].command.velocity));
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &joints_[i].command.velocity));
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
-    info_.joints[i].name, "effort", &joints_[i].command.effort));
+      info_.joints[i].name, hardware_interface::HW_IF_EFFORT, &joints_[i].command.effort));
   }
 
   return command_interfaces;
