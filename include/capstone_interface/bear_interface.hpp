@@ -40,7 +40,7 @@ public:
     RCLCPP_SHARED_PTR_DEFINITIONS(BearHardware)
 
     BearHardware()
-    : bear_(std::make_unique<bear::BEAR>("/dev/ttyUSB1", 7500000)) {
+    : bear_(std::make_unique<bear::BEAR>("/dev/ttyUSB0", 7500000)) {
         // 추가 초기화 작업이 필요하면 여기서 수행
     }
 

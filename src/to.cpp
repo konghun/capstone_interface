@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
     rclcpp::init(argc, argv);
     auto logger = rclcpp::get_logger("motor_torque_enable_node");
 
-    const char* portName = "/dev/ttyUSB1";
+    const char* portName = "/dev/ttyUSB0";
     int baudrate = 7500000;
 
     BEAR bear(portName, baudrate);
